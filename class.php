@@ -20,7 +20,7 @@ class SendApplication extends CBitrixComponent
 
     private static function validateStringField($sString, bool $bIsRequired = false, string $sInputName = "", string $sPlaceHolder = "") : array
     {
-        $sRegExp = "/^[A-zА-яЁё0-9\s,\.!?()_\-+=;:«»@#$^&*—№% ]+$/u";
+        $sRegExp = "/^[A-zА-яЁё0-9\s,\.!?()_\-+=;:«»@#$]+$/u";
         $arResult = array(
             "SUCCESS" => true,
             "ERRORS" => array(),
