@@ -1,0 +1,97 @@
+.application-form{
+    padding: 0 20px;
+}
+
+.form-field{
+    padding-bottom: 15px;
+}
+
+.form-field label,
+.dark_background--item--name,
+.dark_background--item--description{
+    font-size: 14px;
+    font-family: "Arial", sans-serif;
+    font-weight: 400;
+    line-height: 140%;
+    cursor: pointer;
+    font-style: normal;
+    display: flex;
+    padding-bottom: 5px;
+}
+
+.form-field h2{
+    font-size: 20px;
+    font-family: "Arial", sans-serif;
+    font-weight: 600;
+    line-height: 140%;
+    cursor: pointer;
+    font-style: normal;
+    padding-bottom: 20px;
+}
+
+.application-composition{
+    display: flex;
+    padding-bottom: 35px;
+}
+
+.application-file{
+    padding-bottom: 15px;
+}
+
+.application-composition label{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 5px;
+}
+
+.application-composition label span{
+    color: red;
+    font-weight: 600;
+    padding-bottom: 5px;
+}
+
+.application-comment, .application-title{
+    display: flex;
+    flex-direction: column;
+}
+.form--dark_background{
+    display: none;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    justify-content: center;
+    overflow-y: auto;
+    box-sizing: content-box;
+    padding: 120px 25px;
+    z-index: 200;
+}
+.dark_background--item_detail{
+    z-index: 300;
+    max-width: 670px;
+    position: relative;
+    height: fit-content;
+    background: white;
+    padding: 50px;
+    box-sizing: content-box;
+    margin: auto 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.field-error{
+    font-family: "Lato", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    color: #EB161B;
+    margin-bottom: 5px;
+}
+
+.error_input{
+    border: 1px solid #EB161B;
+}
