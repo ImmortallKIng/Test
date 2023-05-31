@@ -1,4 +1,5 @@
-<?php if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
+<?php if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)
+    die();
 $this->setFrameMode(true); ?>
 <section class="container">
     <form action="<?=$APPLICATION->GetCurPage();?>" name="APPLICATION_FORM" method="POST" class="application-form col-12">
@@ -81,17 +82,17 @@ $this->setFrameMode(true); ?>
                 <option value="Склад №4">Склад №4</option>
             </select>
         </div>
-        <div class="form-field col-6">
+        <div class="form-field col-8 inputs-line_parent">
             <h2>Состав заявки</h2>
             <div class="application-composition">
                 <label for="application-brand">
                     <span>Бренд</span>
-                    <select name="COMPOSITION[BRAND]" id="application-brand">
+                    <select name="COMPOSITION[0][BRAND]" id="application-brand">
                         <option value="">Выберите бренд</option>
-                        <option value="">Бренд №1</option>
-                        <option value="">Бренд №2</option>
-                        <option value="">Бренд №3</option>
-                        <option value="">Бренд №4</option>
+                        <option value="Бренд №1">Бренд №1</option>
+                        <option value="Бренд №2">Бренд №2</option>
+                        <option value="Бренд №3">Бренд №3</option>
+                        <option value="Бренд №4">Бренд №4</option>
                     </select>
                 </label>
                 <label for="application-name">
@@ -99,7 +100,7 @@ $this->setFrameMode(true); ?>
                     <input
                         id="application-name"
                         type="text"
-                        name="COMPOSITION[NAME]"
+                        name="COMPOSITION[0][NAME]"
                     >
                 </label>
                 <label for="application-quantity">
@@ -107,7 +108,7 @@ $this->setFrameMode(true); ?>
                     <input
                         id="application-quantity"
                         type="number"
-                        name="COMPOSITION[QUANTITY]"
+                        name="COMPOSITION[0][QUANTITY]"
                     >
                 </label>
                 <label for="application-packaging">
@@ -115,7 +116,7 @@ $this->setFrameMode(true); ?>
                     <input
                         id="application-packaging"
                         type="text"
-                        name="COMPOSITION[PACKAGING]"
+                        name="COMPOSITION[0][PACKAGING]"
                     >
                 </label>
                 <label for="application-client">
@@ -123,11 +124,19 @@ $this->setFrameMode(true); ?>
                     <input
                         id="application-client"
                         type="text"
-                        name="COMPOSITION[CLIENT]"
+                        name="COMPOSITION[0][CLIENT]"
                     >
                 </label>
+                <div class="add-input-line">
+                    <input type="button" value="+" class="add-line">
+                    <input type="button" value="-" class="delete-line">
+                </div>
             </div>
+        </div>
+        <div class="form-field col-2">
             <input type="file" name="FILE" class="application-file">
+        </div>
+        <div class="form-field col-5">
             <label for="application-comment" class="application-comment">
                 <span>Комментарий</span>
                 <textarea

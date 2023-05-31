@@ -50,11 +50,21 @@
     font-weight: 600;
     padding-bottom: 5px;
 }
-
-.application-comment, .application-title{
+.add-input-line{
+    display: flex;
+    align-items: end;
+    margin-left: 5px;
+}
+.add-input-line input{
+    margin-left: 5px;
+    margin-bottom: 5px;
+}
+.application-comment,
+.application-title{
     display: flex;
     flex-direction: column;
 }
+
 .form--dark_background{
     display: none;
     background-color: rgba(0, 0, 0, 0.5);
@@ -69,6 +79,7 @@
     padding: 120px 25px;
     z-index: 200;
 }
+
 .dark_background--item_detail{
     z-index: 300;
     max-width: 670px;

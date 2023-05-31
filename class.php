@@ -20,7 +20,7 @@ class SendApplication extends CBitrixComponent
 
     private static function validateStringField($sString, bool $bIsRequired = false, string $sInputName = "", string $sPlaceHolder = "") : array
     {
-        $sRegExp = "/^[A-zА-яЁё0-9\s,\.!?()_\-+=;:«»@#$]+$/u";
+        $sRegExp = "/^[A-zА-яЁё0-9\s,\.!?()_\-+=;:«»@#$^*№ ]+$/u";
         $arResult = array(
             "SUCCESS" => true,
             "ERRORS" => array(),
@@ -38,14 +38,10 @@ class SendApplication extends CBitrixComponent
         return $arResult;
     }
 
-    private function validateRequest(array $arInputFields): void
+    private function validateRequest(): void
     {
+        $arInputFields = $this->arPost["FIELDS"];
         $arValidatedRequestFields = array(
-            "BRAND" => SendApplication::validateStringField($arInputFields["BRAND"], false, "COMPOSITION[BRAND]", "Брэнд"),
-            "CLIENT" => SendApplication::validateStringField($arInputFields["CLIENT"], false, "COMPOSITION[CLIENT]", "Клиент"),
-            "NAME" => SendApplication::validateStringField($arInputFields["NAME"], false, "COMPOSITION[NAME]", "Наменование"),
-            "PACKAGING" => SendApplication::validateStringField($arInputFields["PACKAGING"], false, "COMPOSITION[PACKAGING]", "Фасовка"),
-            "QUANTITY" => SendApplication::validateStringField($arInputFields["QUANTITY"], false, "COMPOSITION[QUANTITY]", "Колличество"),
             "CATEGORY" => SendApplication::validateStringField($arInputFields["CATEGORY"], true, "FIELDS[CATEGORY]", "Категория"),
             "COMMENT" => SendApplication::validateStringField($arInputFields["COMMENT"], false, "FIELDS[COMMENT]", "Комментарий"),
             "STOCK" => SendApplication::validateStringField($arInputFields["STOCK"], false, "FIELDS[STOCK]", "Склад поставки"),
@@ -55,12 +51,25 @@ class SendApplication extends CBitrixComponent
         foreach($arValidatedRequestFields as $arField){
             $this->arResult["ERRORS"] = array_merge($this->arResult["ERRORS"], $arField["ERRORS"]);
         }
+        foreach($this->arPost["COMPOSITION"] as $arComposition){
+            $arValidateComposition = array(
+                "BRAND" => SendApplication::validateStringField($arComposition["BRAND"], false, "COMPOSITION[BRAND]", "Брэнд"),
+                "CLIENT" => SendApplication::validateStringField($arComposition["CLIENT"], false, "COMPOSITION[CLIENT]", "Клиент"),
+                "NAME" => SendApplication::validateStringField($arComposition["NAME"], false, "COMPOSITION[NAME]", "Наименование"),
+                "PACKAGING" => SendApplication::validateStringField($arComposition["PACKAGING"], false, "COMPOSITION[PACKAGING]", "Фасовка"),
+                "QUANTITY" => SendApplication::validateStringField($arComposition["QUANTITY"], false, "COMPOSITION[QUANTITY]", "Количество"),
+            );
+            foreach($arValidateComposition as $arCompositionField){
+                $this->arResult["ERRORS"] = array_merge($this->arResult["ERRORS"], $arCompositionField["ERRORS"]);
+            }
+        }
+
         if(count($this->arResult["ERRORS"]) > 0 || !check_bitrix_sessid()){
             $this->arResult["STATUS"] = "ERROR";
         }
     }
 
-    private function sendEmail(array $arInputFields): void
+    private function sendEmail(): void
     {
         $arParams = array(
             "BRAND" => $arInputFields["BRAND"],
@@ -86,10 +95,10 @@ class SendApplication extends CBitrixComponent
     private function setResult() : void
     {
         if(!empty($this->arPost["FIELDS"])){
-            $arInputFields = array_merge($this->arPost["FIELDS"], $this->arPost["COMPOSITION"]);
-            $this->validateRequest($arInputFields);
+            $this->validateRequest();
             if($this->arResult["STATUS"] !== "ERROR"){
-                $this->sendEmail($arInputFields);
+                $this->sendEmail();
+                $this->arResult["REQUEST"] = $arInputFields;
             }
         }
     }
